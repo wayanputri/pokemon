@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+	<head>
+		<link
+		  href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css"
+		  rel="stylesheet"
+		  type="text/css"
+		/>
+		<script
+		  src="https://unpkg.com/htmx.org@2.0.0"
+		  integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw"
+		  crossorigin="anonymous"
+		></script>
+	
+		<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+	
+	<div class="flex flex-col gap-20 align-center items-center">
+		<h1 class="text-2xl">Pokemon Cards</h1>
+		<div class="grid grid-cols-4 align-center gap-5">
+			<article class="card w-48 bg-base-100 shadow-lg border-2 border-gray-500">
+<div class="card-body p-4">
+	<img
+	class="self-center"
+	alt="{{.Name}}"
+	width="80"
+	src="{{.Sprites.Other.Showdown.FrontDefault}}"
+	/>
+	<h2 class="card-title self-center">{{.Name}}</h2>
+	<div class="divider mx-[-18px] my-0 border-color-gray-400"></div>
+	<ul>
+		{{range .Types}}
+		<li><strong>Type:</strong>{{.TypeDetail.Name}}</li>
+		{{end}}
+		<li><strong>Height:</strong>{{.Height}}</li>
+		<li><strong>Weight:</strong>{{.Weight}}</li>
+	</ul>
+</div>
+			</article>
+		<div class="card w-48 bg-base-100 shadow-xl border-2 border-gray-500"
+		id="targetDiv">
+			<form
+            hx-post="/poke"
+            hx-trigger="submit"
+            hx-target="#targetDiv"
+            hx-swap="outerHTML"
+            class="card-body justify-center p-4"
+          >
+            <h2 class="card-title self-center">Add more</h2>
+            <input
+              type="text"
+              name="pokemon"
+              placeholder="Type here"
+              class="input input-sm input-bordered w-full max-w-xs"
+            />
+
+            <!-- <span class="loading htmx-indicator loading-dots loading-sm"></span> -->
+            <button type="submit" class="btn btn-sm btn-primary">Add</button>
+          </form>
+
+		</div>
+		</div>
+	</div>
+</body>
+</html>
